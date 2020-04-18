@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
-resources :games, controller: 'games', only: [:new]
-# get "/games/newgame", to: "#games#new"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+# games
+post '/games/search', to: 'games#search'
+post '/games/business', to: 'games#business'
+#user
+post '/users/create', to: 'users#create'
+patch '/users/:id', to: 'users#update'
+get '/users/likes', to: 'users#likes'
+# #likes 
+post '/likes', to: 'likes#create'
+
+# resources :users, only: [:create, :update] do 
+#     resources :likes, only: [:create]
+# end
+
 end
