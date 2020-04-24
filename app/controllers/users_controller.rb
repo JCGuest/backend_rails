@@ -1,7 +1,25 @@
 class UsersController < ApplicationController
 
     def create 
-        user = User.find_or_create_by(name: params[:name])
+        user = User.new(user_params)
+        if params[:game_id]
+            user.game_id = params[:game_id]
+            user.save
+        else 
+            user.game_id = Game.all.last.id
+            user.save
+        end        
+        render json: UserSerializer.new(user)
+    end
+
+    def login
+        user = User.find_by(name: params[:user][:name])
+        if !user
+            user = User.new(user_params)
+            user.save 
+        else
+            user.update(user_params)
+        end
         render json: UserSerializer.new(user)
     end
 
@@ -11,14 +29,18 @@ class UsersController < ApplicationController
         render json: UserSerializer.new(user)
     end
 
-    def likes
-        user = User.find_by(name: params[:name])
-        render json: UserSerializer.new(user)
-    end
+    # def delete 
+    #     user = User.find_by(name: params[:name])
+    #     user.destroy 
+    #     render json: {
+    #         'message': "Delted user: #{params[:name]}"
+    #     }
+    # end
 
     private
 
-    def user_params
-        params.permit(:name)
+    def user_params 
+        params.require(:user).permit(:name, :game_id)
     end
+
 end
