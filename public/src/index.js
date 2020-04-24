@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-HEROKU = "https://immense-scrubland-35263.herokuapp.com"
 const term = document.querySelector("#term")
 const loc = document.querySelector("#location")
 const btnNext = document.querySelector("button#next")
@@ -83,7 +82,7 @@ if (user) {
         headers: {
             'Content-Type': 'application/json'}
             };
-    fetch(`${HEROKU}/users/create?&user[name]=${user}`, userConfig)
+    fetch(`http://localhost:3000/users/create?&user[name]=${user}`, userConfig)
     .then(resp => {
         return resp.json()
     })        
@@ -102,7 +101,7 @@ if (user) {
   };
 
 function createGame() {
-    fetch(`${HEROKU}/games/new`)
+    fetch(`http://localhost:3000/games/new`)
     .then( resp => {
         return resp.json()
     })
@@ -148,7 +147,7 @@ function findUsers() {
                 };
         for (let i=1; i <= NUMPLAYERS; i++){
             let name = document.querySelector(`input#player-${i}-name`).value
-                fetch(`${HEROKU}/users/login?&user[name]=${name}&user[game_id]=${GAMEID}`, userConfig)
+                fetch(`http://localhost:3000/users/login?&user[name]=${name}&user[game_id]=${GAMEID}`, userConfig)
                 .then(response => {
                     return response.json()
                     })
@@ -178,7 +177,7 @@ function yelpFetch() {
         headers: {
             'Content-Type': 'application/json'}
     };
-    fetch(`${HEROKU}/games/search?term=${TERM}&location=${LOC}`, yelpConfig)
+    fetch(`http://localhost:3000/games/search?term=${TERM}&location=${LOC}`, yelpConfig)
     .then(response => {
         return response.json()
         })
@@ -262,7 +261,7 @@ function yelpRender(i, player) {
                  headers: {
                      'Content-Type': 'application/json'}
              };
-             fetch(`${HEROKU}/likes?username=${USERARY[player-1]}&name=${result.name}&yelp_id=${result.id}`, likeConfig)
+             fetch(`http://localhost:3000/likes?username=${USERARY[player-1]}&name=${result.name}&yelp_id=${result.id}`, likeConfig)
              .then(resp => {
                  return resp.json()
              })
@@ -377,7 +376,7 @@ function noMatch() {
 };
 
 function getAllLikes() {
-    fetch(`${HEROKU}/games/${GAMEID}/likes`)
+    fetch(`http://localhost:3000/games/${GAMEID}/likes`)
     .then(resp => {
         return resp.json()
     })
