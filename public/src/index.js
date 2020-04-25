@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-// HOME = "https://immense-scrubland-35263.herokuapp.com"
-HOME = "http://localhost:3000"
+HOME = "https://immense-scrubland-35263.herokuapp.com
+// HOME = "http://localhost:3000"
 const term = document.querySelector("#term")
 const loc = document.querySelector("#location")
 const btnNext = document.querySelector("button#next")
