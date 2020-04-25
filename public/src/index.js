@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-HEROKU = "https://immense-scrubland-35263.herokuapp.com"
+// HOME = "https://immense-scrubland-35263.herokuapp.com"
+HOME = "http://localhost:3000"
 const term = document.querySelector("#term")
 const loc = document.querySelector("#location")
 const btnNext = document.querySelector("button#next")
@@ -59,7 +60,7 @@ btnNext.addEventListener('click', function nex() {
 //             headers: {
 //                 'Content-Type': 'application/json'}
 //                 };
-//                 fetch(`http://localhost:3000/users/delete?name=${user}`, userConfig)
+//                 fetch(`${HOME}/users/delete?name=${user}`, userConfig)
 //                 .then(resp => {
 //                     return resp.json()
 //                 })
@@ -83,7 +84,7 @@ if (user) {
         headers: {
             'Content-Type': 'application/json'}
             };
-    fetch(`${HEROKU}/users/create?&user[name]=${user}`, userConfig)
+    fetch(`${HOME}/users/create?&user[name]=${user}`, userConfig)
     .then(resp => {
         return resp.json()
     })        
@@ -102,7 +103,7 @@ if (user) {
   };
 
 function createGame() {
-    fetch(`${HEROKU}/games/new`)
+    fetch(`${HOME}/games/new`)
     .then( resp => {
         return resp.json()
     })
@@ -146,9 +147,9 @@ function findUsers() {
                 headers: {
                     'Content-Type': 'application/json'}
                 };
-        for (let i=1; i <= NUMPLAYERS; i++){
+        for (let i = 1; i <= NUMPLAYERS; i++){
             let name = document.querySelector(`input#player-${i}-name`).value
-                fetch(`${HEROKU}/users/login?&user[name]=${name}&user[game_id]=${GAMEID}`, userConfig)
+                fetch(`${HOME}/users/login?&user[name]=${name}&user[game_id]=${GAMEID}`, userConfig)
                 .then(response => {
                     return response.json()
                     })
@@ -178,7 +179,7 @@ function yelpFetch() {
         headers: {
             'Content-Type': 'application/json'}
     };
-    fetch(`${HEROKU}/games/search?term=${TERM}&location=${LOC}`, yelpConfig)
+    fetch(`${HOME}/games/search?term=${TERM}&location=${LOC}`, yelpConfig)
     .then(response => {
         return response.json()
         })
@@ -262,7 +263,7 @@ function yelpRender(i, player) {
                  headers: {
                      'Content-Type': 'application/json'}
              };
-             fetch(`${HEROKU}/likes?username=${USERARY[player-1]}&name=${result.name}&yelp_id=${result.id}`, likeConfig)
+             fetch(`${HOME}/likes?username=${USERARY[player-1]}&name=${result.name}&yelp_id=${result.id}`, likeConfig)
              .then(resp => {
                  return resp.json()
              })
@@ -377,7 +378,7 @@ function noMatch() {
 };
 
 function getAllLikes() {
-    fetch(`${HEROKU}/games/${GAMEID}/likes`)
+    fetch(`${HOME}/games/${GAMEID}/likes`)
     .then(resp => {
         return resp.json()
     })
@@ -396,7 +397,6 @@ function megaList(allLikes) {
     };
 
     if (names[0]) {
-        console.log(names)
         const megaDiv = document.querySelector('div#mega')
         const megaH2 = document.querySelector('h2#mega')
         megaH2.innerHTML = `A list of all businesses ${nameParse(USERARY)} and ${USERARY.slice(-1)[0]} have all liked on Chicken Tinder... `
